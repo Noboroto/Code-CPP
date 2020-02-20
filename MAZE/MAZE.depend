@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1563118612 source:e:\onedrive\c++\maze\main.cpp
+	<cstdio>
+
+1563117387 source:e:\onedrive\c++\maze\ac.cpp
+	<bits/stdc++.h>
+

@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1567606020 source:e:\onedrive\c++\nkflow\main.cpp
+	<iostream>
+	<queue>
+
+1567650929 source:d:\tu 11ti\nkflow\main.cpp
+	<iostream>
+	<queue>
+	<algorithm>
+

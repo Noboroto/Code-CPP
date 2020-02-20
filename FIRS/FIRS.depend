@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1567472299 source:e:\onedrive\c++\firs\main.cpp
+	<cstdio>
+	<iostream>
+	<algorithm>
+	<vector>
+	<algorithm>
+

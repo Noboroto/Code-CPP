@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1563989009 source:e:\onedrive\c++\expression\main.cpp
+	<string>
+	<stack>
+	<iostream>
+	<cstdio>
+	<string>
+

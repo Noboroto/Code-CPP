@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1561692468 source:e:\onedrive\c++\idol\main.cpp
+	<iostream>
+	<cstdio>
+	<algorithm>
+

@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1564028682 source:e:\onedrive\c++\journey\main.cpp
+	<iostream>
+	<string>
+	<queue>
+	<cstdio>
+

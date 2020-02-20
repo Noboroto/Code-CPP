@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1567819401 source:e:\onedrive\c++\guide\main.cpp
+	<cstdio>
+	<iostream>
+	<queue>
+

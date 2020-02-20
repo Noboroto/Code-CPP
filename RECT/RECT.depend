@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1564325922 source:e:\onedrive\c++\rect\main.cpp
+	<cstdio>
+	<stack>
+	<iostream>
+
