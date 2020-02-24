@@ -3,11 +3,12 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "g++.exe build active file",
+            "label": "CPP build active file",
             "command": "C:\\TDM-GCC-64\\bin\\g++.exe",
             "args": [
                 "-g",
                 "${file}",
+                "-std=c++14",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
@@ -21,23 +22,7 @@
         },
         {
             "type": "shell",
-            "label": "cl.exe build active file",
-            "command": "cl.exe",
-            "args": [
-                "/Zi",
-                "/EHsc",
-                "/Fe:",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "${file}"
-            ],
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": "build"
-        },
-        {
-            "type": "shell",
-            "label": "cpp.exe build active file",
+            "label": "PAS build active file",
             "command": "C:\\FPC\\3.0.4\\bin\\i386-win32\\cpp.exe",
             "args": [
                 "-g",
