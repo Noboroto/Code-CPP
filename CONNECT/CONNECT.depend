@@ -1,7 +1,0 @@
-# depslib dependency file v1.0
-1567494621 source:e:\onedrive\c++\connect\main.cpp
-	<iostream>
-	<cstdio>
-	<algorithm>
-	<vector>
-

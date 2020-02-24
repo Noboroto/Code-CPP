@@ -1,7 +1,0 @@
-# depslib dependency file v1.0
-1564847058 source:e:\onedrive\c++\meterain\main.cpp
-	<iostream>
-	<cstdio>
-	<algorithm>
-	<vector>
-

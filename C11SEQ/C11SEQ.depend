@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1561082264 source:e:\onedrive\c++\c11seq\main.cpp
-	<iostream>
-	<cstdio>
-	<cstdlib>
-	<ctime>
-	<fstream>
-

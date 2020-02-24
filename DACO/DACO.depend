@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1561518338 source:e:\onedrive\c++\daco\main.cpp
-	<iostream>
-	<cstdio>
-	<ctime>
-	<cstdlib>
-	<fstream>
-

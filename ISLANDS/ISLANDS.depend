@@ -1,7 +1,0 @@
-# depslib dependency file v1.0
-1567491016 source:e:\onedrive\c++\islands\main.cpp
-	<iostream>
-	<string>
-	<cstdio>
-	<fstream>
-
