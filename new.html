@@ -1,32 +1,32 @@
-<p>Cho trước hai xâu S, T chỉ gồm các chữ cái in thường và một số nguyên k.</p>
+<p>Quốc đảo ByteLand nổi tiếng trên thế giới về những cây cầu vượt biển của mình. Việc thực hiện các tour du lịch tham quan những cây cầu là một trong những niềm vui chính của du khách mỗi khi đến quốc đảo. Tuy nhiên theo Euler, người đã giải bài toán nổi tiếng "Bảy cây cầu ở Konigsberg", thì không thể tham quan tất cả những cây cầu của quốc đảo này chỉ trong một tour du lịch được. Thay vào đó, mỗi du khách phải thực hiện nhiều tour du lịch mới hy vọng tham quan được hết những cây cầu này</p>
+    <p>ByteLand có n hòn đảo xinh đẹp và có n -1 cây cầu vượt biển nối các hòn đảo này với nhau sao cho từ một đảo bất kỳ luôn có thể đi đến hòn đảo bất kỳ khác chỉ bằng cách sử dụng các cây cầu này. 
+    </p>
+    <p>Lần đầu tiên đến ByteLand, Bờm rất muốn tham quan tất cả các cây cầu. Tuy nhiên, với bản tính hấp tấp vốn có của mình, anh ta chọn ngay m tour du lịch đầu tiên mà công ty du lịch quảng cáo (vì Bờm chỉ có đủ tiền để đi m tour du lịch). Mỗi tour du lịch thực hiện việc tham quan tất cả các cây cầu từ đảo a đến đảo b nào đó. 
+    </p>
+    <p>Nộp tiền xong rồi, Bờm mới giật mình tự hỏi: "Có còn cây cầu nào mà mình không tham quan khi thực hiện xong m tour du lịch này nhỉ?".
+    </p>
 <h2>Yêu cầu</h2>
-<p> Hãy tìm dãy gồm k xâu con khác rỗng không trùng nhau p<sub>1</sub>, p<sub>2</sub>, ..., p<sub>k</sub> sao cho:
-    <ul>
-        <li>Xâu S phân tích được thành a<sub>1</sub>p<sub>1</sub>a<sub>2</sub>p<sub>2</sub>...a<sub>k</sub>p<sub>k</sub>a<sub>k+1</sub>, trong đó a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>k+1</sub> là các xâu con tùy ý (có thể là xâu rỗng);</li>
-        <li>Xâu T phân tích được thành b<sub>1</sub>p<sub>1</sub>b<Sub>2</Sub>p<sub>2</sub>...b<sub>k</sub>p<sub>k</sub>b<sub>k+1</sub>, trong đó b<sub>1</sub>, b<sub>2</sub>, ..., b<sub>k+1</sub> là các xâu con tùy ý (có thể là xâu rỗng);</li>
-        <li>Tổng chiều dài của các xâu pi (i=1..k) là lớn nhất.</li>
-    </ul>
+<p> Viết chương trình xác định số lượng các cây cầu mà Bờm không tham quan được
 </p>
  <h2>Dữ liệu</h2>
 <p><ul>
-    <li>Dòng đầu ghi n, m, k (1 ≤ n, m ≤ 1 000, 1 ≤ k ≤ 10), n là chiều dài của xâu S, m là chiều dài của xâu T;</li>
-    <li>Dòng thứ hai ghi xâu S;</li>
-    <li>Dòng thứ ba ghi xâu T.</li>
+    <li>Dòng thứ nhất ghi số nguyên n - số hòn đảo (1 ≤ n ≤ 200 000) </li>
+    <li>n - 1 dòng tiếp theo: mỗi dòng gồm hai số nguyên a và b - có một cây cầu vượt biển nối đảo a và đảo b. </li>
+    <li>Dòng thứ n + 1 ghi số nguyên m - số tour du lịch mà Bờm đăng ký (1 ≤ m ≤ 200 000) </li>
+    <li>m dòng tiếp theo: mỗi dòng gồm hai số nguyên a và b thể hiện một tour du lịch tham quan các cây cầu đi từ đảo a đến đảo b.  </li>
 </ul>
 </p>
 <h2>Kết quả</h2>
-<p>Gồm một dòng ghi tổng chiều dài của các xâu p<sub>i</sub></p>
-<!-- <h2>Giải thích</h2>
-<p><ul>
-    <li>Trước khi loại bỏ 2 hòn đá: kc = 2 </li>
-    <li>Loại bỏ hòn đá ở tọa độ 2, 14 thì kc = 4 </li>
-</ul> </p> -->
-<h2>Ràng buộc</h2>
+<p>Một số nguyên duy nhất thể hiện số cây cầu chưa được kiểm tra</p>
+<h2>Giải thích</h2>
+<p>Giải thích: Tour thứ nhất Bờm tham quan các cây cầu (2, 3), (2, 4) và (4, 6).Tour thứ hai, Bờm tham quan các cây cầu (5, 4) và (4, 6). Cây cầu duy nhất chưa được tham quan là (1, 2). 
+     </p>
+<!-- <h2>Ràng buộc</h2>
 <p>
      <ul>
     <li><b>Subtask 1</b>: 50% số test có N &le; 100 </li>
     <li><b>Subtask 2</b>: 50% số test có N &le; 1 000</li>
-<!--     <li><b>Subtask 1</b>: 30% số test có 2 ≤ 𝑇 ≤ 10; 𝐿,𝑅 ≤ 10<sup>5</sup></li>
+    <li><b>Subtask 1</b>: 30% số test có 2 ≤ 𝑇 ≤ 10; 𝐿,𝑅 ≤ 10<sup>5</sup></li>
     <li><b>Subtask 2</b>: 30% số test có 10 ≤ 𝑇 ≤ 100; 0 &lt; 𝐿,𝑅 ≤ 3.10<sup>6</sup>  </li>
- --></ul>
-</p>
+</ul>
+</p> -->
