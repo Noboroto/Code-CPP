@@ -1,26 +1,30 @@
+#include <cstdio>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
-const int N = 60000, oo = 1e9 + 7;
-int f[N], r[N], a[N], n;
+vector <int> t, r, f;
+int n;
 
-void start (){
+int main (){
     cin >> n;
-    for (int i = 1; i <= n; ++i){
-        cin >> a[i];
-        f[i] = oo;
+    for (int i = 0; i < n; ++i) {
+        int x;
+        cin >> x;
+        t.push_back(x);
     }
-    for (int i = 1; i <= n - 1; ++i){
-        cin >> r[i];
+    for (int i = 0; i < n; ++i) {
+        int x;
+        cin >> x;
+        r.push_back(x);
     }
-}
-
-void solve(int i){
-    if (i <= 0) return oo;
-
-}
-
-int main(){
+    f.push_back (t[0]);
+    f.push_back (min (t[0] + t[1], r[0]));
+    for (int i = 2; i < n; ++i){
+        int tmp = min (f[i - 1] + t[i], f[i - 2] + r[i - 1]);
+        f.push_back(tmp);
+    }
+    cout << f.back();
     return 0;
 }
