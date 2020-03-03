@@ -1,4 +1,3 @@
-#include <cstdio>
 #include <iostream>
  
 using namespace std;
@@ -17,7 +16,7 @@ int main () {
         for (int  i = 0; i < m; ++i){
             int x = (i - 1 < 0) ? -1e9: f[i - 1][j - 1];
             int y = f[i][j - 1];
-            int z = (i + 1 >= n) ? -1e9: f[i + 1][j - 1];
+            int z = (i + 1 >= m) ? -1e9: f[i + 1][j - 1];
             f[i][j] = f[i][j] + max (x, max (y, z));
         }
     }
@@ -25,4 +24,4 @@ int main () {
     for (int i = 0; i < m; ++i) ans = max (ans, f[i][n - 1]);
     cout << ans;
     return 0;
-}
+} 
