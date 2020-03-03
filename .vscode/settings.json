@@ -70,7 +70,24 @@
         "scoped_allocator": "cpp",
         "shared_mutex": "cpp",
         "thread": "cpp",
-        "typeindex": "cpp"
+        "typeindex": "cpp",
+        "concepts": "cpp",
+        "ios": "cpp",
+        "queue": "cpp",
+        "stack": "cpp",
+        "xfacet": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocinfo": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp",
+        "xmemory": "cpp",
+        "xstddef": "cpp",
+        "xstring": "cpp",
+        "xtr1common": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
