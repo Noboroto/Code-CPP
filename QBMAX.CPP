@@ -3,7 +3,7 @@
 using namespace std;
  
 int const N = 1000 + 1;
-long long m, n, f[N][N];
+int m, n, f[N][N];
  
 int main () {
     cin >> m >> n;
@@ -20,7 +20,7 @@ int main () {
             f[i][j] = f[i][j] + max (x, max (y, z));
         }
     }
-    long long ans = -1e9;
+    int ans = -1e9;
     for (int i = 0; i < m; ++i) ans = max (ans, f[i][n - 1]);
     cout << ans;
     return 0;
