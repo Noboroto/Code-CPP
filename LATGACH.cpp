@@ -2,32 +2,48 @@
 #include <vector>
 
 using namespace std;
-typedef unsigned long long ll;
 
-int n, t;
-vector <ll> result;
+int n;
+vector <int> f1, f2, ans;
 
-ll GetAns (int n) {
-    ll a1, a2, ans;
-    a1 = 1;
-    a2 = 2;
-    if (n < 3) return n;
-    for (int i = 3; i <= n; ++i) {
-        ans = a1 + a2;
-        a1 = a2;
-        a2 = ans;
+vector <int> operator+ (const vector <int> &a, vector <int> &b){
+    vector <int> result;
+    int remember = 0;
+    for (int i = 0; i < max (a.size(), b.size()); ++i) {
+        int x = (i < a.size()) ? a[i] : 0;
+        int y = (i < b.size()) ? b[i] : 0;
+        result.push_back((x + y + remember) % 10);
+        remember = (x + y + remember) / 10;
     }
-    return ans;
+    if (remember != 0) result.push_back(remember);
+    return result;
 }
 
-int main()
-{
-    cin >> t;
-    for (int i = 0; i < t; ++i){
-        int x;
-        cin >> x;
-        result.push_back(GetAns(x));
+void Process (int n) {
+    f1.clear();
+    f2.clear();
+    ans.clear();
+    f1.push_back (1);
+    f2.push_back (2);
+    if (n < 3) {
+        cout << n << '\n';
+        return;
     }
-    for (int i = 0; i < t; ++i) cout << result[i] << '\n';
+    for (int i = 3; i <= n; ++i) {
+        ans = f1 + f2;
+        f1.swap(f2);
+        f2 = ans;
+    }
+    for (int i = ans.size() - 1; i >= 0; --i) cout << ans[i];
+    cout << '\n';
+}
+
+int main () {
+    int t;
+    cin >> t;
+    for (int i = 0; i < t; ++i) {
+        cin >> n;
+        Process (n);
+    }
     return 0;
 }
