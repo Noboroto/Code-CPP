@@ -121,17 +121,6 @@ void getout (){
     }
 }
 
-void test (){
-    for (int i = 1; i <= 20; ++i){
-        d[i] = i;
-        update(i);
-    }
-    while (nHeap != 0){
-        int u = pop();
-        cout << u << endl;
-    }
-}
-
 int main (){
     start();
     Dijkstra();
