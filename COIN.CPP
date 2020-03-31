@@ -13,28 +13,26 @@ void Init ()
     freopen (FileOUT.c_str(), "w", stdout);
 }
 
+const int N = 20;
 int n, k;
-vector <int> last, o, r;
+int o[N], r[N];
+int ans = 0;
 
 int main ()
 {
     Init();
     cin >> n >> k;
-    o.push_back(0);
-    r.push_back(0);
     for (int i = 1; i <= n; ++i)
     {
         char c;
         cin >> c;
-        o.push_back(o[i - 1] + (int)(c == 'O'));
-        r.push_back(r[i - 1] + (int)(c == 'R'));
+        o[i] = o[i - 1] + (int)(c == 'O');
+        r[i] = r[i - 1] + (int)(c == 'R');
     }
-    int ans = 0;
-    int j = 0;
-    for (int i = 0; i < n; ++i)
+    int maxr = r[n];
+    while (maxr > 0)
     {
-        int id = upper_bound(o, o + i, -r[i]*k + o[i]) - o.begin();
-        ans = max (ans, j - id + 1);
+        int id = upper_bound(o + 1, o + n + 1)
     }
     cout << ans;
     return 0;
