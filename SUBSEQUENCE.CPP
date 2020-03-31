@@ -13,22 +13,35 @@ void Init ()
 }
 
 const int oo = 1e9 + 7;
-int n;
+int n, ans;
+vector <int> tmp, result;
+
+void BT (int u)
+{
+    if (u == n) return;
+    for (int i = u + 1; i <= n; ++i)
+    { 
+        if (u != 0 && tmp[i] == tmp[result.back()]) continue;
+        result.push_back(i);
+        ans = (ans + 1) % oo;
+        BT(i);
+        result.pop_back();
+    }
+}
 
 int main ()
 {
     //Init();
     cin >> n;
-    int ans = 0;
-    int tmp = n;
+    ans = 0;
+    tmp.push_back(0);
     for (int i = 0; i < n; ++i)
     {
         int x;
         cin >> x;
-        ans += tmp;
-        ans %= oo;
-        tmp--;
+        tmp.push_back(x);
     }
-    cout << ans + 1;
+    BT(0);
+    cout << ans;
     return 0;
 }
