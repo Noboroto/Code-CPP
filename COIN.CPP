@@ -18,7 +18,7 @@ vector <int> last, o, r;
 
 int main ()
 {
-    Init();
+    //Init();
     cin >> n >> k;
     o.push_back(0);
     r.push_back(0);
