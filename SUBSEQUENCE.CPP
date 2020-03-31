@@ -6,8 +6,8 @@ using namespace std;
 
 void Init ()
 {
-    const string FileINP = "SUBSEQ" + (string)".INP";
-    const string FileOUT = "SUBSEQ" + (string)".OUT";
+    const string FileINP = "SUBSEQUENCE" + (string)".INP";
+    const string FileOUT = "SUBSEQUENCE" + (string)".OUT";
     freopen (FileINP.c_str(), "r", stdin);
     freopen (FileOUT.c_str(), "w", stdout);
 }
@@ -31,7 +31,7 @@ void BT (int u)
 
 int main ()
 {
-    Init();
+    //Init();
     cin >> n;
     ans = 0;
     tmp.push_back(0);
