@@ -17,12 +17,14 @@ int n;
 
 int main ()
 {
-    Init();
+    //Init();
     cin >> n;
     int ans = 0;
     int tmp = n;
     for (int i = 0; i < n; ++i)
     {
+        int x;
+        cin >> x;
         ans += tmp;
         ans %= oo;
         tmp--;
