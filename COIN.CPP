@@ -30,11 +30,11 @@ int main ()
         r.push_back(r[i - 1] + (int)(c == 'R'));
     }
     int ans = 0;
-    int j = 0;
-    for (int i = 0; i < n; ++i)
+    for (int i = 15; i <= 15; ++i)
     {
-        int id = upper_bound(o, o + i, -r[i]*k + o[i]) - o.begin();
-        ans = max (ans, j - id + 1);
+        if (o[i] - r[i]*k < 0) continue; 
+        int j = upper_bound (o.begin(), o.end(), o[i] - r[i]*k) - o.begin();
+        ans = max (ans, i - j + 1);
     }
     cout << ans;
     return 0;
