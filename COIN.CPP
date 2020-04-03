@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <algorithm>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -13,26 +14,27 @@ void Init ()
     freopen (FileOUT.c_str(), "w", stdout);
 }
 
-const int N = 20;
-int n, k;
-int o[N], r[N];
-int ans = 0;
+long long n, k;
+vector <long long> o, r;
+map <long long, long long> a;
+long long ans = 0;
 
 int main ()
 {
     Init();
     cin >> n >> k;
-    for (int i = 1; i <= n; ++i)
+    o.push_back(0);
+    r.push_back(0);
+    for (long long i = 1; i <= n; ++i)
     {
         char c;
         cin >> c;
-        o[i] = o[i - 1] + (int)(c == 'O');
-        r[i] = r[i - 1] + (int)(c == 'R');
-    }
-    int maxr = r[n];
-    while (maxr > 0)
-    {
-        int id = upper_bound(o + 1, o + n + 1)
+        o.push_back(o[i - 1] + (int)(c == 'O'));
+        r.push_back(r[i - 1] + (int)(c == 'R'));
+        long long x = o[i] - k*r[i];
+        if (a[x] == 0) a[x] = i;
+        else ans = max (ans, (i - a[x]));
+        if (o[i] == r[i]*k) ans = max (ans, i);
     }
     cout << ans;
     return 0;
