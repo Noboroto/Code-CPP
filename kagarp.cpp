@@ -2,23 +2,38 @@
 
 using namespace std;
 
-int n, a, b, tmp, count;
+int n, a, b, tmp, count, ans = 1e9 + 7;
 
 int main ()
 {
     cin >> n >> a >> b;
-    tmp = 1;
-    count = 0;
+    if (n < a && n < b)
+    {
+        cout << -1;
+        return 0;
+    }
+    else if (n < a && n > b)
+    {
+        cout << ((n % b == 0) ? n/b : -1);
+        return 0;
+    }
+    else if (n > a && n < b)
+    {
+        cout << ((n % a == 0) ? n/a : -1);
+        return 0;
+    }
     while (tmp < n)
     {
         count++;
-        tmp = count * max(a,b);
+        tmp = count * b;
     }
     while (tmp > n)
     {
-        tmp -= (abs(a - b));
+        tmp -= (b - a);
     }
-    if (tmp == n) cout << count;
-    else cout << -1;
+    if (n % b == 0) ans = min (ans, n / b);
+    if (tmp == n) ans = min (ans, count);
+    if (n % a == 0) ans = min (ans, n/a);
+    cout << ((ans == 1e9 + 7) ? -1 : ans);
     return 0;
 }
