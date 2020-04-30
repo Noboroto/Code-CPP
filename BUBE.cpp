@@ -1,64 +1,38 @@
 #include <iostream>
-#include <cstdio>
-#include <vector>
+#include <map>
 #include <algorithm>
 
 using namespace std;
 
-void Init ()
-{
-    const string FileINP = "BUBE " + (string)".INP";
-    const string FileOUT = "BUBE " + (string)".OUT";
-    freopen (FileINP.c_str(), "r", stdin);
-    freopen (FileOUT.c_str(), "w", stdout);
-}
-
 int const N = 1e6;
-int n, k, result, check[N];
-vector <int> a;
-
-int FindUpper (int l, int r, int x)
-{
-    int ans = 1e9+7;
-    while (l < r)
-    {
-        int mid = (l + r) / 2;
-        if (a[mid] < x) l = mid + 1;
-        if (x <= a[mid])
-        {
-            if (check[a[mid]] > 0) ans = min (ans, mid);
-            r = mid - 1;
-        }
-    }
-    ans = (ans == 1e9 + 7) ? -1 : ans;
-    return ans;
-}
+int n, k, result, a[N];
+map <int, int> check;
 
 int main ()
 {
-    Init();
+    ios_base::sync_with_stdio(0);
+    cin.tie(NULL);
+    cout.tie(NULL);
     cin >> n >> k;
     for (int i = 0; i < n; ++i)
     {
-        int x;
-        cin >> x;
-        a.push_back(x);
-        check[x]++;
+        cin >> a[i];
+        check[a[i]]++;
     }
-    sort (a.begin(), a.end());
-    int ans = 0;
-    for (int i = 0; i < n; ++i)
+    sort (a, a + n);
+    long long ans = 0;
+    for (int i = n - 1; i >= 0; --i)
     {
-        int sum = a[i];
+        if (check[a[i]] <= 0) continue;
         check[a[i]]--;
-        int tmp = FindUpper (i + 1 , n - 1, a[i] + k);
-        while (tmp != -1)
+        int tmp = a[i];
+        for (int j = i - 1; j >= 0; --j)
         {
-            check[a[tmp]]--;
-            sum = a[tmp];
-            tmp = FindUpper (tmp + 1, n - 1,a[tmp] + k);
+            if (tmp < a[j] + k || check[a[j]] <= 0) continue;
+            tmp = a[j];
+            check[a[j]]--;
         }
-        ans += sum;
+        ans += a[i];
     }
     cout << ans;
     return 0;
