@@ -2,10 +2,13 @@
 
 using namespace std;
 
-int n, a, b, tmp, count, ans = 1e9 + 7;
+int n, a, b, tmp, count, ans = -1;
 
 int main ()
 {
+    ios::sync_with_stdio(0);
+    cin.tie(NULL);
+    cout.tie(NULL);
     cin >> n >> a >> b;
     if (n < a && n < b)
     {
@@ -22,18 +25,14 @@ int main ()
         cout << ((n % a == 0) ? n/a : -1);
         return 0;
     }
-    while (tmp < n)
+    for (int i = (n / b); i >= 0; --i)
     {
-        count++;
-        tmp = count * b;
+        if ((n - i*b) % a == 0) 
+        {
+            ans = i + ((n - i * b) / a);
+            break;
+        }
     }
-    while (tmp > n)
-    {
-        tmp -= (b - a);
-    }
-    if (n % b == 0) ans = min (ans, n / b);
-    if (tmp == n) ans = min (ans, count);
-    if (n % a == 0) ans = min (ans, n/a);
     cout << ((ans == 1e9 + 7) ? -1 : ans);
     return 0;
 }
