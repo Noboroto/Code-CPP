@@ -1,12 +1,11 @@
 #include <iostream>
-#include <map>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 
-int const N = 1e6;
-int n, k, result, a[N];
-map <int, int> check;
+int n, k, result;
+vector <int> a;
 
 int main ()
 {
@@ -16,23 +15,17 @@ int main ()
     cin >> n >> k;
     for (int i = 0; i < n; ++i)
     {
-        cin >> a[i];
-        check[a[i]]++;
+        int x;
+        cin >> x;
+        a.push_back(x);
     }
-    sort (a, a + n);
+    sort (a.begin(), a.end());
     long long ans = 0;
+    int j = n - 1;
     for (int i = n - 1; i >= 0; --i)
     {
-        if (check[a[i]] <= 0) continue;
-        check[a[i]]--;
-        int tmp = a[i];
-        for (int j = i - 1; j >= 0; --j)
-        {
-            if (tmp < a[j] + k || check[a[j]] <= 0) continue;
-            tmp = a[j];
-            check[a[j]]--;
-        }
-        ans += a[i];
+        if (a[i] + k <= a[j])j--;
+        else ans += a[i];
     }
     cout << ans;
     return 0;
