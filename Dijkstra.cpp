@@ -1,5 +1,6 @@
 #include <iostream>
-#include <cstdio>
+#include <vector>
+#include <map>
 
 using namespace std;
 
@@ -12,11 +13,12 @@ struct edge {
     }
 };
 
-int const N = 1e6 + 1, oo = 1e9 + 77;
-int heap [2*N], nHeap, n, m, pos[N], head[2*N], trace[N];
-long long d[N];
-bool ok [N];
-edge a[N], adj [N];
+long long const oo = 1e18 + 7;
+int nHeap, n, m;
+vector <long long> d;
+vector <int> heap, head, trace, pos;
+map <int, bool> ok;
+vector <edge> a, adj;
 
 void update (int v){
     int c = pos[v];
@@ -58,19 +60,31 @@ int pop (){
 
 void start () {
     cin >> n >> m;
+    for (int i = 0; i <= n; ++i)
+    {
+        heap.push_back(0);
+        heap.push_back(0);
+        pos.push_back(0);
+        trace.push_back(0);
+        head.push_back(0);
+        head.push_back(0);
+        ok[i] = true;
+        d.push_back(oo);
+    }
+    adj.push_back(edge());
+    adj.push_back(edge());
     for (int i = 0; i < m; ++i){
         int u, v, c;
         cin >> u >> v >> c;
-        a[i] = edge(u,v,c);
+        a.push_back (edge(u,v,c));
         head[u]++;
         head[v]++;
-    }nHeap = 0;
+        adj.push_back(edge());
+        adj.push_back(edge());
+    }
+    nHeap = 0;
     for (int i = 1; i <= n; ++i){
-        pos[i] = 0;
-        d[i] = oo;
-        ok[i] = true;
         head[i] += head[i-1];
-        trace[i] = 0;
         if (i > 1) update(i);
     }
     d[1] = 0;
