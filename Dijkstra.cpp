@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <map>
-
+ 
 using namespace std;
-
+ 
 struct Heap
 {
     map <int, int> Position;
@@ -84,23 +84,24 @@ struct Heap
     {
         return Tree[1];
     }
+    long long AtIndex (int index)
+    {
+        return Tree[Position[index]].second;
+    }
 };
-
+ 
 const long long oo = 1e18 + 7;
 Heap HeapTree;
 int n, m;
 map <int, int> Track;
 map <int, bool> Free;
 vector < vector < pair <int, int> > > EdgeAdjacency ;
-
+ 
 void Start ()
 {
-    const string FileINP = "Dijkstra" + (string)".INP";
-    const string FileOUT = "Dijkstra" + (string)".OUT";
-    freopen (FileINP.c_str(), "r", stdin);
-    freopen (FileOUT.c_str(), "w", stdout);
     cin >> n >> m;
     Track[1] = -1;
+    Track[n] = -n;
     for (int i = 0; i <= n; ++i)
     {
         EdgeAdjacency.push_back(vector <pair <int, int> >());
@@ -116,45 +117,50 @@ void Start ()
         EdgeAdjacency[v].push_back(make_pair (u, c));
     }
 }
-
+ 
 void Dijkstra ()
 {
     while (!HeapTree.Emty())
     {
         int u = HeapTree.Top().first;
-        int value = HeapTree.Top().second;
+        long long value = HeapTree.Top().second;
         Free[u] = false;
+        if (u == n) break;
         HeapTree.Pop();
         for (int i = 0; i < EdgeAdjacency[u].size(); ++i)
         {
             int v = EdgeAdjacency[u][i].first;
-            if (!Free[v]) continue;
-            int c = value + EdgeAdjacency[u][i].second;
+            long long c = value + EdgeAdjacency[u][i].second;
+            if (!Free[v] || HeapTree.AtIndex(v) <= c) continue;
             HeapTree.Update(v, c);
             Track[v] = u;
         }
     }
 }
-
+ 
 void Finish ()
 {
-    if (Track[n] == 0)
+    if (HeapTree.AtIndex(n) == oo && Track[n] == -n)
     {
         cout << -1;
+        return;
     }
     vector <int> d;
     d.clear();
     d.push_back(n);
-    while (Track[n] != -1)
+    while (Track[n] > 0)
     {
         d.push_back(Track[n]);
         n = Track[n];
     }
-    for (int i = d.size() - 1; i > 0; --i) cout << d[i] << ' ';    
+    for (int i = d.size() - 1; i >= 0; --i) cout << d[i] << ' ';    
 }
-
+ 
 int main ()
 {
+    ios_base::sync_with_stdio(0);
+    cin.tie(NULL);
+    cout.tie(NULL);
     Start();
     Dijkstra();
     Finish();
