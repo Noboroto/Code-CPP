@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <map>
- 
+
 using namespace std;
- 
+
 struct Heap
 {
     map <int, int> Position;
@@ -89,14 +89,14 @@ struct Heap
         return Tree[Position[index]].second;
     }
 };
- 
+
 const long long oo = 1e18 + 7;
 Heap HeapTree;
 int n, m;
 map <int, int> Track;
 map <int, bool> Free;
 vector < vector < pair <int, int> > > EdgeAdjacency ;
- 
+
 void Start ()
 {
     cin >> n >> m;
@@ -117,7 +117,7 @@ void Start ()
         EdgeAdjacency[v].push_back(make_pair (u, c));
     }
 }
- 
+
 void Dijkstra ()
 {
     while (!HeapTree.Emty())
@@ -137,7 +137,7 @@ void Dijkstra ()
         }
     }
 }
- 
+
 void Finish ()
 {
     if (HeapTree.AtIndex(n) == oo && Track[n] == -n)
@@ -155,7 +155,7 @@ void Finish ()
     }
     for (int i = d.size() - 1; i >= 0; --i) cout << d[i] << ' ';    
 }
- 
+
 int main ()
 {
     ios_base::sync_with_stdio(0);
