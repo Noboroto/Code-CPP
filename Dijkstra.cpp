@@ -4,140 +4,159 @@
 
 using namespace std;
 
-struct edge {
-    int u, v, c;
-    edge (int _u = 0, int _v = 0, int _c = 0){
-        u = _u;
-        v = _v;
-        c = _c;
+struct Heap
+{
+    map <int, int> Position;
+    //First = index
+    //Second = value
+    vector <pair <int, long long> > Tree;
+    int nHeap = 0;
+    Heap()
+    {
+        Tree.push_back(make_pair(0, 0));
+    }
+    void Add (int index, long long value)
+    {
+        nHeap++;
+        Tree.push_back(make_pair(index, value));
+        Position[index] = nHeap;
+        int p = Position[index];
+        while (p / 2 > 0 && Tree[p / 2].second >= value)
+        {
+            int parent = p / 2;
+            swap(Tree[parent], Tree[p]);
+            swap(Position[Tree[parent].first], Position[Tree[p].first]);
+            p = parent;
+        }
+    }
+    void Update(int index, long long value)
+    {
+        int p = Position[index];
+        int Compare = (value == Tree[p].second) ? 0 : ((value > Tree[p].second) ? 1 : -1);
+        Tree[p].second = value;
+        switch (Compare)
+        {
+        case -1:
+            while (p / 2 > 0 && Tree[p / 2].second > value)
+            {
+                int parent = p / 2;
+                swap(Tree[parent], Tree[p]);
+                swap(Position[Tree[parent].first], Position[Tree[p].first]);
+                p = parent;
+            }
+            break;
+        case 1:
+            while (p * 2 <= nHeap)
+            {
+                int child = p * 2;
+                if (child < nHeap && Tree[child + 1].second < Tree[child].second) child++;
+                if (Tree[p].second <= Tree[child].second) break;
+                swap (Tree[child], Tree[p]);
+                swap (Position[Tree[child].first], Position[Tree[p].first]);
+                p = child;
+            }
+            break;
+        }
+    }
+    bool Emty ()
+    {
+        return (nHeap == 0);
+    }
+    void Pop()
+    {
+        swap (Tree[1], Tree[nHeap]);
+        swap(Position[Tree[1].first], Position[Tree[nHeap].first]);
+        Tree.pop_back();
+        nHeap--;
+        if (nHeap == 0) return;
+        int p = 1;
+        while (p * 2 <= nHeap)
+        {
+            int child = p * 2;
+            if (child < nHeap && Tree[child + 1].second < Tree[child].second) child++;
+            if (Tree[p].second <= Tree[child].second) break;
+            swap (Tree[child], Tree[p]);
+            swap (Position[Tree[child].first], Position[Tree[p].first]);
+            p = child;
+        }
+    }
+    pair <int, long long> Top ()
+    {
+        return Tree[1];
     }
 };
 
-long long const oo = 1e18 + 7;
-int nHeap, n, m;
-vector <long long> d;
-vector <int> heap, head, trace, pos;
-map <int, bool> ok;
-vector <edge> a, adj;
+const long long oo = 1e18 + 7;
+Heap HeapTree;
+int n, m;
+map <int, int> Track;
+map <int, bool> Free;
+vector < vector < pair <int, int> > > EdgeAdjacency ;
 
-void update (int v){
-    int c = pos[v];
-    if (c == 0){
-        nHeap++;
-        c = nHeap;
-    }
-    int p = c / 2;
-    while (p > 0 && d[heap[p]] >= d[v]){
-        heap[c] = heap[p];
-        pos[heap[c]] = c;
-        c = p;
-        p = c/2;
-    }
-    heap[c] = v;
-    pos[v] = c;
-}
-
-int pop (){
-    int p = heap[1];
-    int v = heap [nHeap];
-    nHeap--;
-    if (nHeap == 0) return p;
-    int r = 1;
-    while (r*2 <= nHeap){
-        int c = r*2;
-        if (c < nHeap && d[heap[c+1]] < d[heap[c]])c++;
-        if (d[v] <= d[heap[c]]) break;
-        heap[r] = heap[c];
-        heap[c] = 0;
-        pos[heap[r]] = r;
-        r = c;
-    }
-    heap[r] = v;
-    pos[v] = r;
-    return p;
-}
-
-
-void start () {
+void Start ()
+{
+    const string FileINP = "Dijkstra" + (string)".INP";
+    const string FileOUT = "Dijkstra" + (string)".OUT";
+    freopen (FileINP.c_str(), "r", stdin);
+    freopen (FileOUT.c_str(), "w", stdout);
     cin >> n >> m;
+    Track[1] = -1;
     for (int i = 0; i <= n; ++i)
     {
-        heap.push_back(0);
-        heap.push_back(0);
-        pos.push_back(0);
-        trace.push_back(0);
-        head.push_back(0);
-        head.push_back(0);
-        ok[i] = true;
-        d.push_back(oo);
+        EdgeAdjacency.push_back(vector <pair <int, int> >());
+        if (i == 1) HeapTree.Add(i, 0);
+        if (i > 1) HeapTree.Add(i, oo);
+        Free[i] = true;
     }
-    adj.push_back(edge());
-    adj.push_back(edge());
-    for (int i = 0; i < m; ++i){
+    for (int i = 0; i < m; ++i)
+    {
         int u, v, c;
         cin >> u >> v >> c;
-        a.push_back (edge(u,v,c));
-        head[u]++;
-        head[v]++;
-        adj.push_back(edge());
-        adj.push_back(edge());
+        EdgeAdjacency[u].push_back(make_pair (v, c));
+        EdgeAdjacency[v].push_back(make_pair (u, c));
     }
-    nHeap = 0;
-    for (int i = 1; i <= n; ++i){
-        head[i] += head[i-1];
-        if (i > 1) update(i);
-    }
-    d[1] = 0;
-    for (int i = 0; i < m; ++i){
-        int u = a[i].u;
-        int v = a[i].v;
-        int c = a[i].c;
-        adj[head[u]] = edge(u,v,c);
-        adj[head[v]] = edge(v,u,c);
-        head[u]--;
-        head[v]--;
-    }
-
 }
 
-void Dijkstra (){
-    update(1);
-    while (nHeap > 0){
-        int u = pop();
-        ok [u] = false;
-        if (u == n) break;
-        for (int i = head[u] + 1; i <= head[u + 1]; ++i){
-            int v = adj[i].v;
-            int c = adj[i].c;
-            if (!ok[v] || d[v] <= d[u] + c) continue;
-            d[v] = d[u] + c;
-            trace [v] = u;
-            update(v);
+void Dijkstra ()
+{
+    while (!HeapTree.Emty())
+    {
+        int u = HeapTree.Top().first;
+        int value = HeapTree.Top().second;
+        Free[u] = false;
+        HeapTree.Pop();
+        for (int i = 0; i < EdgeAdjacency[u].size(); ++i)
+        {
+            int v = EdgeAdjacency[u][i].first;
+            if (!Free[v]) continue;
+            int c = value + EdgeAdjacency[u][i].second;
+            HeapTree.Update(v, c);
+            Track[v] = u;
         }
     }
 }
 
-void getout (){
-    if (d[n] == oo && trace[n] == 0){
+void Finish ()
+{
+    if (Track[n] == 0)
+    {
         cout << -1;
-        return;
     }
-    int f = n;
-    int i = 1;
-    d[i] = n;
-    while (f != 1){
-        f = trace[f];
-        i++;
-        d[i] = f;
+    vector <int> d;
+    d.clear();
+    d.push_back(n);
+    while (Track[n] != -1)
+    {
+        d.push_back(Track[n]);
+        n = Track[n];
     }
-    for (;i > 0; --i){
-        cout << d[i] << ' ';
-    }
+    for (int i = d.size() - 1; i > 0; --i) cout << d[i] << ' ';    
 }
 
-int main (){
-    start();
+int main ()
+{
+    Start();
     Dijkstra();
-    getout();
+    Finish();
     return 0;
 }
