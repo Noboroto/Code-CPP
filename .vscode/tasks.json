@@ -7,11 +7,12 @@
             "command": "C:\\TDM-GCC-64\\bin\\g++.exe",
             "args": [
                 "-g",
-                "${file}",
                 "-std=c++14",
+                "${file}",
+                "-pipe",
+                //"-O2",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "-O2"
             ],
             "options": {
                 "cwd": "C:\\TDM-GCC-64\\bin"
