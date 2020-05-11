@@ -11,7 +11,7 @@
                 "-std=c++14",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                //"-O2"
+                "-O2"
             ],
             "options": {
                 "cwd": "C:\\TDM-GCC-64\\bin"
