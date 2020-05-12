@@ -1,12 +1,9 @@
 #include <iostream>
-#include <cstdio>
-#include <vector>
 #include <queue>
-#include <cmath>
 
 using namespace std;
 
-void Init ()
+void init ()
 {
     const string FileINP = "C11WATER" + (string)".INP";
     const string FileOUT = "C11WATER" + (string)".OUT";
@@ -16,7 +13,7 @@ void Init ()
 
 struct Node
 {
-    int x, y;
+    int x, y, z;
     Node (int _x = 0, int _y = 0)
     {
         x = _x;
@@ -24,68 +21,76 @@ struct Node
     }
 };
 
-const int Dx[4] = {0, 1 , 0, -1};
-const int Dy[4] = {1, 0, -1,  0};
-int n, m, count = 0, wall = 0;
+const int N = 1e3 +1;
+const int Dx[2] = {0, 1};
+const int Dy[2] = {1, 0};
+int n, m, Height[N][N];
 long long ans = 0;
-vector < vector <int> > a;
-vector < vector <bool> > Ok;
+bool Free[N][N];
 
-long long BFS (Node root)
+long long BFS (Node Root)
 {
     long long ans = 0;
+    Free[Root.x][Root.y] = false;
+    int RootValue = Height[Root.x][Root.y];
     queue <Node> q;
-    q.push(root);
+    q.push(Root);
+    bool Check = false;
     while (!q.empty())
     {
         Node u;
         u = q.front();
         q.pop();
-        Ok[u.x][u.y] = false;
-        for (int i = 0; i < 4; ++i)
+        for (int i = 0; i < 2; ++i)
         {
             Node v = {u.x + Dx[i], u.y + Dy[i]};
-            if (v.x < 0 || v.y < 0 || v.x >= m || v.y >= n) 
-            { 
-                if (a[u.x][u.y] < a[root.x][root.y]) break;
+            if (v.x >= n || v.y >= m)
+            {
+                if (Height[u.x][u.y] < RootValue) 
+                {
+                    
+                    break;
+                }
                 continue;
             }
-            if (!Ok[v.x][v.y]) continue;
-            if (a[u.x][u.y] > a[root.x][root.y]) continue;
-            ans += (a[v.x][v.y] == a[root.x][root.y]) ? 0 : (a[root.x][root.y] - a[v.x][v.y]);
-            Ok[v.x][v.y] = false;
-            count++;
+            if (Height[v.x][v.y] > RootValue || !Free[v.x][v.y]) continue;
+            ans += RootValue - Height[v.x][v.y];
+            Free[v.x][v.y] = false;
             q.push(v);
         }
+        if (Check) break;
     }
+    
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < m; ++j)
+        {
+            cout << Free[i][j] << ' ';
+        }
+        cout << '\n';
+    }
+    cout << ans << "\n\n";
     return ans;
 }
 
 int main ()
 {
-    Init();
-    cin >> m >> n;
-    for (int j = 0; j < m; ++j)
+    init ();
+    cin >> n >> m;
+    for (int i = 0; i < n; ++i)
     {
-        a.push_back(vector<int>());
-        Ok.push_back(vector<bool>());
-        for (int i = 0; i < n; ++i)
+        for (int j = 0; j < m; ++j)
         {
-            int x;
-            cin >> x;
-            a[j].push_back(x);
-            Ok[j].push_back(true);
+            cin >> Height[i][j];
+            Free[i][j] = true;
         }
     }
-    for (int j = 0; j < m; ++j)
+    for (int i = 0; i < n; ++i)
     {
-        for (int i = 0; i < n; ++i)
+        for (int j = 0; j < m; ++j)
         {
-            if (!Ok[j][i]) continue;
-            int tmp = (wall == 0) ? 0 : abs (wall - a[j][i]);
-            ans += count*tmp;
+            if (!Free[i][j]) continue;
             ans += BFS ({i, j});
-            wall = max (wall, a[j][i]);
         }
     }
     cout << ans;
