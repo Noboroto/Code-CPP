@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdio>
 #include <vector>
+#include <map>
+#include <queue>
 
 using namespace std;
 
@@ -14,7 +16,7 @@ void Init ()
 
 int const N = 1e5 + 1;
 int n, m, s, k, ProductOf[N];
-vector < vector <int> > Adjacency;
+vector < vector <int> > Adjacency, Fair;
 
 void Input ()
 {
@@ -22,6 +24,11 @@ void Input ()
     for (int i = 0; i < n; ++i)
     {
         Adjacency.push_back(vector<int>());
+        Fair.push_back(vector<int>());
+        for (int j = 0; j <= k; ++j)
+        {
+            Fair[i].push_back(0);
+        }
         cin >> ProductOf[i];
     }
     for (int i = 0; i < m; ++i)
@@ -36,5 +43,6 @@ void Input ()
 int main ()
 {
     Init();
+    Input();
     return 0;
 }
