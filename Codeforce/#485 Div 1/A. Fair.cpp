@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstdio>
 #include <vector>
-#include <map>
 #include <queue>
 
 using namespace std;
@@ -38,6 +37,12 @@ void Input ()
         Adjacency[u].push_back(v);
         Adjacency[v].push_back(u);
     }
+}
+
+void BFS ()
+{
+    queue <int> Current, Previous;
+    int count = 0;
 }
 
 int main ()
