@@ -18,7 +18,7 @@ const int dy[4] = {1, 0,-1, 0};
 
 int n, m, k = 0, previous = 0;
 queue <Node> Smelt;
-queue <Node> Path;
+queue <Node> PrevPath;
 bool Smelted[N][N], OK[N][N];
 Node Go, Treasure;
 
@@ -46,7 +46,7 @@ void Start ()
     previous = Smelt.size();
     cin >> Go.x >> Go.y >> Treasure.x >> Treasure.y;
     Smelt.push (Go);
-    Path.push (Go);
+    PrevPath.push (Go);
 }
 
 void Smelting ()
@@ -69,7 +69,8 @@ void Smelting ()
 
 bool BFS ()
 {
-    int count = 0;
+    queue <Node> Path;
+    Path.swap(PrevPath);
     while (!Path.empty())
     {
         Node u;
@@ -77,18 +78,16 @@ bool BFS ()
         Path.pop();
         if (!Smelted[u.x][u.y])
         {
-            Path.push(u);
-            if (count == Path.size()) return false;
+            PrevPath.push(u);
             continue;
         }
+        if (u.x == Treasure.x && u.y == Treasure.y) return true;
         for (int i = 0; i < 4; ++i)
         {
             Node v = {u.x + dx[i], u.y + dy[i]};
-            if (v.x > n || v.y > m || v.x < 1 || v.y < 1 || !OK[v.x][v.y]) continue;
-            if (v.x == Treasure.x && v.y == Treasure.y)
-                return true;
-            Path.push(v);
-            count += (!Smelted[v.x][v.y]);
+            if ((v.x > n || v.y > m || v.x < 1 || v.y < 1 || !OK[v.x][v.y])) continue;
+            if (!Smelted[v.x][v.y])PrevPath.push(v);
+            else Path.push(v);
             OK[v.x][v.y] = false;
         }
     }
