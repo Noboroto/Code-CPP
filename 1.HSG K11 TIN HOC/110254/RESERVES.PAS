@@ -1,0 +1,30 @@
+USES CRT;
+VAR F1:TEXT;
+A:ARRAY[1..100,1..100] OF INTEGER;
+B:ARRAY[1..100,1..100] OF BOOLEAN;
+D,I,N,J:INTEGER;
+BEGIN
+        writeln('HELLOOOOOOOOOOOOOOOOO');
+        delay(3000);
+        assign(f1,'RESERVES.INP');
+        RESET(F1);
+        readln(f1,n);
+        FOR I:=1 TO N DO
+        FOR J:=1 TO N DO
+        READ(F1,A[I,J]);
+        CLOSE(F1);
+        FOR I:=2 TO N DO
+        FOR J:=2 TO N DO
+        BEGIN
+        B[I,J]:=TRUE;
+        IF (A[I,J] > A[I+1,J]) OR (A[I,J] > A[I,J-1]) OR (A[I,J] > A[I,J+1]) OR (A[I,J] > A[I-1,J]) THEN B[I,J]:=FALSE;
+        IF (A[I,J] > A[I+1,J+1]) OR (A[I,J] > A[I-1,J-1]) OR (A[I,J] > A[I-1,J+1]) OR (A[I,J] > A[I+1,J-1]) THEN B[I,J]:=FALSE;
+        END;
+	FOR I:=1 TO N DO
+	FOR J:=1 TO N DO
+	IF B[I,J] THEN D:=D+1;
+        ASSIGN(F1,'RESERVES.OUT');
+        REWRITE(F1);
+        WRITELN(F1,D);
+        CLOSE(F1);
+END.

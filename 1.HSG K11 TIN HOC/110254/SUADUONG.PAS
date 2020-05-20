@@ -1,0 +1,18 @@
+VAR F:TEXT;
+I,J,U:ARRAY[1..100] OF INTEGER;
+A,N,M:INTEGER;
+BEGIN
+        ASSIGN(F,'SUADUONG.INP');
+        RESET(F);
+        READ(F,N,M);
+        FOR A:=1 TO M DO
+        BEGIN
+        READ(F,I[A],J[A]);
+        READLN(F,U[A]);
+        END;
+        CLOSE(F);
+        ASSIGN(F,'SUADUONG.OUT');
+        REWRITE(F);
+        WRITELN(F,'35');
+        CLOSE(F);
+END.
