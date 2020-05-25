@@ -13,7 +13,7 @@ int s1, s2, s3, position, result;
 
 int main ()
 {
-    Init();
+    //Init();
     int sum = 0;
     result = 0;
     cin >> s1 >> s2 >> s3;
