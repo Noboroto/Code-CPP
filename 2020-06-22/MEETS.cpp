@@ -2,76 +2,35 @@
 
 using namespace std;
 
-void Init ()
-{
-    const string FileINP = "MEETS" + (string)".INP";
-    const string FileOUT = "MEETS" + (string)".OUT";
-    //freopen (FileINP.c_str(), "r", stdin);
-    //freopen (FileOUT.c_str(), "w", stdout);
-}
-
 const int N = 1e6 + 1;
 int n;
-pair <int, int> Meet [N];
+pair <int, int>  Meet [2*N];
 
 void GetDate ()
 {
-    cin >> n;
-    for (int i = 0; i < n; ++ i)
+    scanf ("%d", &n);
+    for (int i = 0; i < n; ++i)
     {
-        cin >> Meet[i].first >> Meet[i].second;
+        scanf ("%d %d", &Meet[i].first, &Meet[i + n].first);
+        Meet[i].second = 1, Meet[i + n].second = -1;
     }
-    sort (Meet, Meet + n);
+    sort (Meet, Meet + 2*n);
 }
 
 int Proccess (int &n)
 {
-    int Counter = n, ans = 0;
-    bitset <N> Check;
-    Check.set();
-    
-    while (Counter > 0)
+    int Counter = 0, ans = 0;
+    for (int i = 0; i < 2*n; ++i)
     {
-        ans++;
-        stack <pair <int, int> > Stack;
-        for (int i = 0; i < n; ++i)
-        {
-            if (Check[i] == 0) continue;
-            if (Stack.empty())
-            { 
-                Stack.push (Meet[i]);
-                Check[i] = 0;
-                Counter--;
-            }
-            else if (Stack.top().second <= Meet[i].first)
-            {
-                Stack.push (Meet[i]);
-                Check[i] = 0;
-                Counter--;
-            }
-        }
+        Counter += Meet[i].second;
+        ans = max (ans, Counter);
     }
     return ans;
 }
 
-int Bruce (int &n)
-{
-    return n;
-}
-
 int main ()
 {
-    Init();
     GetDate();
-    int ans = 0;
-    if (n < -1000)
-    {
-        ans = Bruce (n);
-    }
-    else
-    {
-        ans = Proccess (n);
-    }
-    cout << ans;
+    printf ("%d", Proccess (n));
     return 0;
 }
