@@ -65,10 +65,10 @@ void Tim_Hoan_Vi(int k)
 
 int main ()
 {
-    Init();
+    //Init();
     cin >> n;
     cin >> k;
-    cin >> quiz;
+    //cin >> quiz;
     Transform (quiz);
     Root.push_back(1);
     for (int i = 0; i < n; ++i)
@@ -76,8 +76,8 @@ int main ()
         Root.push_back(Root[i] * (i + 1));
     }    
     int ans = 0;
-    for (int i = 1; i <= n; ++i) ans += Tim_K(i) * Root[n - i];
+    //for (int i = 1; i <= n; ++i) ans += Tim_K(i) * Root[n - i];
     Tim_Hoan_Vi(k);
-    cout << ans + 1;
+    //cout << ans + 1;
     return 0;
 }
