@@ -27,14 +27,13 @@ long long pow (long long a, long long n, long long MOD)
 int main ()
 {
     string s;
-    Init();
+    //Init();
     cin >> s;
     n = s.length();
     for (int i = 0; i < s.length(); ++i)
     {
         check[s[i]]++;
     }
-    
     for (int i = 1; i <= n; ++i)
     {
         ans = (ans * i) % oo;
