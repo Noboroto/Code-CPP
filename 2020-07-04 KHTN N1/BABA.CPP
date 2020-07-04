@@ -6,16 +6,35 @@ const int mod = 33;
 string s;
 int Problem, i, j;
 
-string Max (string &a, string &b)
+string Max (string &a, int first, int last)
 {
-    if (a.length() > b.length()) return a;
-    else if  (a.length () < b.length()) return b;
-    for (int i = 0; i < a.length(); i++)
+    string ans = "";
+    if (a.length() > (last - first)) return a;
+    else if  (a.length () < (last - first + 1)) 
     {
-        if (a[i] > b[i]) return a;
-        else if (a[i] < b[i]) return b;
+        for (int j = first; j < last; j++)
+        {
+            ans += s[j];
+        }
+        return ans;
     }
-    return b;
+    for (int i = first; i < last; i++)
+    {
+        if (a[i - first] > s[i]) 
+        {
+            ans = a;
+            break;
+        }
+        else if (a[i - first] < s[i]) 
+        {
+            for (int j = first; j < last; j++)
+            {
+                ans += s[j];
+            }
+            break;
+        }
+    }
+    return ans;
 }
 
 int Solve_1 ()
@@ -49,11 +68,11 @@ string Solve_2 ()
         str = "";
         for (j = i; j < s.length(); ++j)
         {
-            tmp = ((tmp % mod) * 10 + (int)(s[j] - '0')) % mod;
             str += s[j];
+            tmp = ((tmp % mod) * 10 + (int)(s[j] - '0')) % mod;
             if (tmp == 0) 
             {
-                ans = Max (ans, str);
+                ans = Max (ans, i, j + 1);
             }
         }
     }
@@ -64,14 +83,22 @@ int main ()
 {
     cin >> s;
     cin >> Problem;
-    switch (Problem)
+    if (s.length() <= 1e3)
     {
-    case 1:
-        cout << Solve_1();
-        break;
-    case 2:
-        cout << Solve_2();
-        break;
+        switch (Problem)
+        {
+        case 1:
+            cout << Solve_1();
+            break;
+        case 2:
+            cout << Solve_2();
+            break;
+        }
+    }
+    else 
+    {
+        if (Problem == 1) cout << 0;
+        else cout << -1;
     }
     return 0;
 }
