@@ -40,19 +40,5 @@ int main ()
         b[i] = true;
     }
     CompactArray (n);
-    for (int i = 1; i <= n; ++i)
-    {
-        for (int j = Query[i].first; j <= Query[i].second; ++j)
-        {
-            b[a[j]] = false;
-            a[j] = i;
-        }
-    }
-    int ans = 0;
-    for (int i = 1; i <= n; ++i)
-    {
-        ans += b[i];
-    }
-    cout << ans;
     return 0;
 }
