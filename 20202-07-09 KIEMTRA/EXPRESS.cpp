@@ -44,7 +44,7 @@ void Reverse (int counter, long long sum, int i)
 
 int main ()
 {
-    //Init();
+    Init();
     GetData();
     Reverse (2,0,0);
     printf ("%d", ans);
