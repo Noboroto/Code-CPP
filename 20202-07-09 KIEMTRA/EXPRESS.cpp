@@ -1,9 +1,5 @@
 #include <bits/stdc++.h>
 
-/*
-kiem tra xem khi a[i] * a[i - 1] = max co bi sai ket qua khi chon pos bat ky ko
-*/
-
 using namespace std;
 
 void Init ()
@@ -14,39 +10,40 @@ void Init ()
     freopen (FileOUT.c_str(), "w", stdout);
 }
 
-const int N = 10 + 1;
+const int N = 1000 + 1;
 int n;
 int a[N];
 long long ans = 0;
-pair <long long, int> MaxVal[N];
 
-void GetData ()
+long long GetData ()
 {
+    long long sum = 0;
     scanf ("%d", &n);
     for (int i = 0; i < n; ++i)
     {
         scanf ("%d",&a[i]);
+        sum += a[i];
     }
+    return sum;
 }
 
-void Reverse (int counter, long long sum, int i)
+void Reverse (long long sum, int t, int j)
 {
-    if (i == n)
+    if (t == 2)
     {
-        if (counter > 0) return;
-        ans = max (ans, sum);
+        ans = max (sum, ans);
         return;
     }
-    if (i > n) return;
-    Reverse (counter, sum + a[i], i + 1);
-    Reverse (counter - 1, sum + a[i] * a[i + 1], i + 2);
+    for (int i = j; i < n; ++i)
+    {
+        Reverse (sum - a[i] - a[i - 1] + a[i] * a[i -1], t + 1, i + 2);
+    }
 }
 
 int main ()
 {
     Init();
-    GetData();
-    Reverse (2,0,0);
+    Reverse (GetData(), 0, 1);
     printf ("%d", ans);
     return 0;
 }
