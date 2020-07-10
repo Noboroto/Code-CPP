@@ -11,25 +11,21 @@ void Init ()
 }
 
 const int N = 1e6 + 1;
-int a[N], n;
-long long ans = 1e18 + 7;
+int sum = 0, n;
+int ans = 1e9 + 7;
 
 int main ()
 {
     Init();
     scanf ("%d", &n);
+    int j = 0, maxval = 0;
     for (int i = 1; i <= n; ++i)
     {
-        scanf ("%d", &a[i]);
-        a[i] += a[i - 1];
+        scanf ("%d", &j);
+        sum += j;
+        ans = min (sum - maxval, ans);
+        maxval = max (maxval, sum);
     }
-    for (int i = 1; i <= n; ++i)
-    {
-        for (int j = 1; j <= i; ++j)
-        {
-            ans = min (ans, (long long)(a[i] - a[j - 1]));
-        }
-    }
-    printf("%lld", ans);
+    printf("%d", ans);
     return 0;
 }
