@@ -37,6 +37,7 @@ void Reverse (long long sum, int t, int j)
     for (int i = j; i < n; ++i)
     {
         Reverse (sum - a[i] - a[i - 1] + a[i] * a[i -1], t + 1, i + 2);
+        if (t == 0 && i > 1) Reverse (sum - a[i] - a[i - 1] - a[i - 2] + a[i]*a[i-1]*a[i - 2], 2, i + 3);
     }
 }
 
