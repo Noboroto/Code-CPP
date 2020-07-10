@@ -12,7 +12,7 @@ void Init ()
 
 const int N = 1000 + 1;
 int n;
-int a[N];
+long long a[N];
 long long ans = 0;
 
 long long GetData ()
@@ -45,6 +45,6 @@ int main ()
 {
     Init();
     Reverse (GetData(), 0, 1);
-    printf ("%d", ans);
+    printf ("%lld", ans);
     return 0;
 }
