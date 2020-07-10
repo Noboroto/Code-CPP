@@ -27,7 +27,7 @@ int main ()
     {
         for (int j = 1; j <= i; ++j)
         {
-            ans = min (ans, (long long)(a[j] - a[i - 1]));
+            ans = min (ans, (long long)(a[i] - a[j - 1]));
         }
     }
     printf("%lld", ans);
