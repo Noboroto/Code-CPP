@@ -11,15 +11,15 @@ void Init ()
 }
 
 int const N = 1e6 + 1;
-int n, a[N], f[N], q;
+long long a[N];
+int n, f[N], q;
 
 void Prepare ()
 {
-    for (int i = 2; i < N; ++i)
+    for (long long i = 2; i < N; ++i)
     {
         a[i] = (a[i] != 0) ? a[i] : i - 1;
-        if (i * i > N) break;
-        for (int j = i; j*i < N; j++)
+        for (long long j = i; j*i < N; j++)
         {
             a[j*i] = j;
         }
@@ -28,15 +28,6 @@ void Prepare ()
     for (int i = 2; i < N; ++i)
     {
         f[i] = min (f[i - 1], f[a[i]]) + 1;
-    }
-}
-
-int GetResult (int n)
-{
-    if (n >= 0) return f[n];
-    else 
-    {
-        
     }
 }
 
@@ -49,7 +40,7 @@ int main ()
     for (int i = 0; i < q; ++i)
     {
         scanf ("%d", &x);
-        printf ("%d\n", GetResult (x));
+        printf ("%d\n", f[x]);
     }
     return 0;
 }
