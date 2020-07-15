@@ -21,7 +21,7 @@ void Prepare ()
         a[i] = (a[i] != 0) ? a[i] : i - 1;
         for (long long j = i; j*i < N; j++)
         {
-            a[j*i] = j;
+            a[j*i] = min (j, a[j*i]);
         }
     }
     f[1] = 1;
