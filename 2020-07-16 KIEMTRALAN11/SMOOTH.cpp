@@ -18,6 +18,12 @@ int main ()
     cin >> n;
     switch (n)
     {
+        case 1:
+            ans = 9;
+            break;
+        case 2:
+            ans = 99;
+            break;
         case 3:
             ans = 989;
             break;
