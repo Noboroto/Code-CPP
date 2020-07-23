@@ -20,7 +20,7 @@ struct Student
     {
         skill = _skill;
         intell = _intell;
-        speed = trunc((long double)max ((k - _skill), 0) / (long double) _intell);
+        speed =(_intell != 0 || _skill >= k) ? trunc((long double)max ((k - _skill), 0) / (long double) _intell) : 1e18 + 7; 
         speed += (_skill + speed * _intell < k);
     }
 
@@ -36,6 +36,7 @@ Student s[N];
 
 void GetInput ()
 {
+    ios_base::sync_with_stdio(0);
     scanf ("%d%d%d", &n, &c, &k);
     int u, v;
     for (i = 0; i < n; ++i)
