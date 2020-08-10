@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 
 /*
-Đề bài https://codeforces.com/group/FLVn1Sc504/contest/274518/problem/Z
+    AC
+    https://codeforces.com/group/FLVn1Sc504/contest/274518/problem/Z
 */
 
 using namespace std;

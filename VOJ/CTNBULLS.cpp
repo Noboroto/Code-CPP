@@ -2,7 +2,8 @@
 
 using namespace std;
 /*
-https://codeforces.com/group/FLVn1Sc504/contest/274811/problem/C
+    AC  
+    https://codeforces.com/group/FLVn1Sc504/contest/274811/problem/C
 */
 
 const int N = 1e5 + 1;
