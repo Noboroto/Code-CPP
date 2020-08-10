@@ -7,27 +7,26 @@ int n, m;
 
 struct Point
 {
-    int Height, Width, Value;
-    bool IsSquare;
+    int Height, Width, Value, PreSquare;
     int GetMaxSquare ()
     {
-        return min (Height, Width) * IsSquare;
+        return min (Height, min (Width, PreSquare)) ;
     }
-    Point Check_Point (Point const &h, Point const &w, Point const &d)
+    Point Check_Point (Point const &h, Point const &w, Point p)
     {
         return Point 
         (
             Value,
-            Value == d.Value && d.IsSquare,
+            (Value == p.Value) * (p.GetMaxSquare() + 1),
             (Value == h.Value) * h.Height + 1,
             (Value == w.Value) * w.Width  + 1 
         );
     }
-    Point (int _v = 0, bool _d = true, int _h = 0,int _w = 0)
+    Point (int _v = 0, int _p = 0, int _h = 0,int _w = 0)
     {
         Height = _h;
         Width = _w;
-        IsSquare = _d;
+        PreSquare = _p;
         Value =_v;
     }
 };
@@ -39,7 +38,7 @@ void Init ()
     const string FileINP = "QBSQUARE" + (string)".INP";
     const string FileOUT = "QBSQUARE" + (string)".OUT";
     freopen (FileINP.c_str(), "r", stdin);
-    //freopen (FileOUT.c_str(), "w", stdout);
+    freopen (FileOUT.c_str(), "w", stdout);
     cin >> n >> m;
     for (int i = 0; i < n; ++i)
     {
