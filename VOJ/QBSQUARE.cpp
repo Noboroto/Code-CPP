@@ -7,7 +7,8 @@ int n, m;
 
 struct Point
 {
-    int Height, Width, IsSquare, Value;
+    int Height, Width, Value;
+    bool IsSquare;
     int GetMaxSquare ()
     {
         return min (Height, Width) * IsSquare;
@@ -17,12 +18,12 @@ struct Point
         return Point 
         (
             Value,
-            (Value == h.Value) * h.Height + 1 ,
-            (Value == w.Value) * w.Width  + 1 ,
-            (Value == d.Value) * d.IsSquare
+            Value == d.Value && d.IsSquare,
+            (Value == h.Value) * h.Height + 1,
+            (Value == w.Value) * w.Width  + 1 
         );
     }
-    Point (int _v = 0, int _h = 0,int _w = 0,int _d = 0)
+    Point (int _v = 0, bool _d = true, int _h = 0,int _w = 0)
     {
         Height = _h;
         Width = _w;
