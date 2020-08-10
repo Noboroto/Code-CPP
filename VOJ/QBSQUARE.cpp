@@ -1,5 +1,9 @@
 #include <bits/stdc++.h>
 
+/*
+Đề bài https://codeforces.com/group/FLVn1Sc504/contest/274518/problem/Z
+*/
+
 using namespace std;
 
 const int N = 1e3 + 1;
@@ -17,7 +21,7 @@ struct Point
         return Point 
         (
             Value,
-            (Value == p.Value) * (p.GetMaxSquare() + 1),
+            (Value == p.Value) * p.GetMaxSquare() + 1,
             (Value == h.Value) * h.Height + 1,
             (Value == w.Value) * w.Width  + 1 
         );
@@ -35,10 +39,6 @@ Point f[N][N];
 
 void Init ()
 {
-    const string FileINP = "QBSQUARE" + (string)".INP";
-    const string FileOUT = "QBSQUARE" + (string)".OUT";
-    freopen (FileINP.c_str(), "r", stdin);
-    freopen (FileOUT.c_str(), "w", stdout);
     cin >> n >> m;
     for (int i = 0; i < n; ++i)
     {
