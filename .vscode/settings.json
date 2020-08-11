@@ -92,5 +92,9 @@
         "bit": "cpp",
         "variant": "cpp"
     },
-    "C_Cpp.errorSquiggles": "Enabled"
+    "C_Cpp.errorSquiggles": "Enabled",
+    "cSpell.words": [
+        "maxf",
+        "minf"
+    ]
 }
