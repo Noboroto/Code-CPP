@@ -10,58 +10,36 @@ void Init ()
     freopen (FileOUT.c_str(), "w", stdout);
 }
 
-int const N = 6 + 1;
-int n, k, h[N];
-pair <long long, long long> f[N][N];
-long long ans = 1e18 + 7, tmp_equal, tmp_minus;
+int const N = 400 + 1;
+int n, k;
+long long f[N][N],h[N];
+long long tmp = -1e18 + 7, max_height;
 
 int main ()
 {
-    //Init();
-    cin >> n >> k;
+    Init();
+    cin >> n >> k;   
     for (int i = 1; i <= n; ++i)
     {
         cin >> h[i];
+        tmp = max (tmp, (long long)h[i]);
+        h[i] += h[i - 1];
+        f[i][0] = i*tmp - h[i];
     }
-    for (int i = 0; i <= n; ++i)
+    for (int i = 2; i <= n; ++i)
     {
-        for (int j = 0; j <= n; ++j)
+        for (int j = 1; j <= min (k, i - 1); ++j)
         {
-            f[N][N] = make_pair (1e9 + 7, 1e9 + 7);
-        }
-    }
-    for (int t = 1; t <= n; ++t)
-    {
-        if (h[t] < h[1]) continue;
-        for (int i = 1; i <= n; ++i)
-        {
-            if (i == 1) 
+            max_height = h[i] - h[i - 1];
+            f[i][j] = 1e18 + 7;
+            for (int t = i - 1; t >= 0; --t)
             {
-                f[i][0].first = h[t];
-                f[i][0].second = h[t] - h[1];
-            }
-            else 
-            {
-                for (int j = 0; j <= min (k, i - 2); j++)
-                {
-                    tmp_equal = (f[i - 1][j].first - h[i] > 0) ? f[i - 1][j].second + f[i - 1][j].first - h[i] : 1e18 + 1; 
-                    tmp_minus = (j > 0) ? f[i - 1][j - 1].second : 1e18 + 7; 
-                    if (tmp_equal <= tmp_minus)
-                    {
-                        f[i][j] = make_pair (f[i][j - 1].first, tmp_equal);
-                    }
-                    else
-                    {
-                        f[i][j] = make_pair (h[i], tmp_minus);
-                    }
-                }
+                tmp = f[t][j - 1] + (i - t) * max_height - (h[i] - h[t]);
+                f[i][j] = min (tmp, f[i][j]);
+                max_height = max (max_height, h[t] - h[t - 1]);
             }
         }
-        for (int i = 1; i <= k; ++i)
-        {
-            ans = min (f[n][i].second, ans);
-        }
     }
-    cout << ans;
+    cout << f[n][k];
     return 0;
 }
