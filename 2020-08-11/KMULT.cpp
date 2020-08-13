@@ -2,10 +2,6 @@
 
 using namespace std;
 
-const int N = 1 + 100; //1e4;
-int n, k, f[N][3], up = 0;
-int ans [N], h[N], down = 0;
-
 void Init ()
 {
     const string FileINP = "KMULT" + (string)".INP";
@@ -14,36 +10,51 @@ void Init ()
     freopen (FileOUT.c_str(), "w", stdout);
 }
 
+int const N = 1e4 + 1;
+int n, k, h[N];
+char ams[N];
+bool AC = false;
+
 void Prepare ()
 {
     cin >> n >> k;
     for (int i = 0; i < n; ++i)
     {
         cin >> h[i];
-        h[i] %= k;
-        up += h[i];
-        down += h[i];
     }
-    f[0][0] = (1e9+7);
+}
+
+void Trau (int pos, long long sum)
+{
+    if (pos == n && sum != 0 && sum % k == 0)
+    {
+        cout << 1 << '\n';
+        sum = 0;
+        for (int i = 1; i < n; ++i)
+        {
+            cout << ams[i];
+            if (ams[i] == '+') sum += h[i];
+            else sum -= h[i];
+        }
+        AC = true;
+        //cout << '\n' << sum << ' ' << sum % k;
+        return;
+    }
+    if (pos >= n) return;
+    if (AC) return;
+    ams[pos] = '+';
+    Trau (pos + 1, sum + h[pos]);
+    if (AC) return;
+    ams[pos] = '-';
+    Trau (pos + 1, sum - h[pos]);
 }
 
 int main ()
 {
-    //Init();
+    Init();
     Prepare();
-    int tmp;
-    for (int i = 1; i <= n; ++i)
-    {
-        if (f[i][0] )
-        ans[i] = tmp;
-        for (int j = 0; j < 10; ++j)
-        {
-            f[i][j] = f[i - 1][tmp] - tmp;
-        }
-    }
-    for (int i = 1; i <= n; ++i)
-    {
-        cout << ans[i];
-    }
+    ams[0] = '+';
+    Trau(1,h[0]);
+    if (!AC) cout << 0;
     return 0;
 }
