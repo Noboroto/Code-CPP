@@ -10,25 +10,14 @@ void Init ()
     freopen (FileOUT.c_str(), "w", stdout);
 }
 
-struct CompareString
+bool Compare (const string &s, const string &t)
 {
-    bool operator () ( string s,  string t)
-    {
-        bool lessfirst = s.length() < t.length();
-        while (s.length() < t.length()) s +='0';
-        while (t.length() < s.length()) t += '0';
-        for (int i = 0; i < min (s.length(), t.length()); ++i)
-        {
-            if (s[i] < t[i]) return true;
-            else if (s[i] > t[i]) return false;
-        }
-        return lessfirst;
-    }
-};
+    return ((s + t) > (t + s));
+}
 
+const int N = 1e5 + 1;
 int n;
-priority_queue<string, vector <string>, CompareString> a;
-string s, t;
+string a[N];
 
 int main ()
 {
@@ -36,17 +25,9 @@ int main ()
     cin >> n;
     for (int i = 0; i < n; ++i)
     {
-        cin >> s;
-        a.push(s);
+        cin >> a[i];
     }
-    while (a.size() > 1)
-    {
-        s = a.top();
-        a.pop();
-        t = a.top();
-        a.pop();
-        a.push (max (s + t, t + s));
-    }
-    cout << a.top();
+    sort (a, a + n, Compare);
+    for (int i = 0; i < n; ++i) cout << a[i];
     return 0;
 }
