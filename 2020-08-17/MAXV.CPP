@@ -2,14 +2,6 @@
 
 using namespace std;
 
-void Init ()
-{
-    const string FileINP = "MAXV" + (string)".INP";
-    const string FileOUT = "MAXV" + (string)".OUT";
-    freopen (FileINP.c_str(), "r", stdin);
-    freopen (FileOUT.c_str(), "w", stdout);
-}
-
 bool Compare (const string &s, const string &t)
 {
     return ((s + t) > (t + s));
@@ -21,12 +13,10 @@ string a[N];
 
 int main ()
 {
-    Init();
+    freopen("MAXV.INP", "r", stdin);
+    freopen("MAXV.OUT", "w", stdout);
     cin >> n;
-    for (int i = 0; i < n; ++i)
-    {
-        cin >> a[i];
-    }
+    for (int i = 0; i < n; ++i) cin >> a[i];
     sort (a, a + n, Compare);
     for (int i = 0; i < n; ++i) cout << a[i];
     return 0;
