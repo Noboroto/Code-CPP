@@ -1,21 +1,16 @@
+/*
+https://codeforces.com/contest/1373/problem/A
+*/
+
 #include <bits/stdc++.h>
 
 using namespace std;
-
-void Init ()
-{
-    const string FileINP = "A" + (string)".INP";
-    const string FileOUT = "A. Donut Shops" + (string)".OUT";
-    freopen (FileINP.c_str(), "r", stdin);
-    freopen (FileOUT.c_str(), "w", stdout);
-}
 
 long long t, a, b, c;
 
 void Solve (long long &a, long long &b, long long &c)
 {
-    if (a*b == c) printf ("%lld", b + 1);
-    else if (a < c)
+    if (a < c)
     {
         printf ("1");
     }
@@ -31,7 +26,6 @@ void Solve (long long &a, long long &b, long long &c)
 
 int main ()
 {
-    //Init();
     scanf ("%d", &t);
     for (long long i = 0; i < t; ++i)
     {
