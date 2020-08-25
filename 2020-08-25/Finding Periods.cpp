@@ -16,7 +16,7 @@ vector <int> Get_Z (string s)
     {
         if (i <= r)
         {
-            ans[i] = min (r - i + 1, ans[i - 1]);
+            ans[i] = min (r - i + 1, ans[i - l]);
         }
         while (i + ans[i] < n && s[ans[i]] == s[i + ans[i]])
             ++ans[i];
