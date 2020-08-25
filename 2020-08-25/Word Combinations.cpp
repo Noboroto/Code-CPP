@@ -2,12 +2,6 @@
 
 using namespace std;
 
-struct Trie
-{
-    
-};
-
-
 void Init ()
 {
 }
