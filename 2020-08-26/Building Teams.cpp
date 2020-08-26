@@ -1,17 +1,17 @@
 /*
 https://cses.fi/problemset/task/1668
 */
-
+ 
 #include <bits/stdc++.h>
-
+ 
 using namespace std;
-
+ 
 vector < vector <int> > adjacent;
-
-map <int, int> Team, Trace;
+ 
+map <int, int> Team;
 int n, m, tmp;
 bool AC = false;
-
+ 
 void Init ()
 {
     scanf ("%d%d", &n, &m);
@@ -28,7 +28,7 @@ void Init ()
     }
 }
 
-bool DFS (int const point, int team)
+void DFS (int const point, int team)
 {
     Team[point] = team;
     if (team == 1) team = 2;
@@ -36,26 +36,35 @@ bool DFS (int const point, int team)
     for (int i = 0; i < adjacent[point].size(); ++i)
     {
         tmp = adjacent[point][i];
-        if (Trace[tmp] != 0 && Trace[tmp] != point && Team[tmp] != team) return false;
-        else if (Team[tmp] != 0 && Trace[tmp] != point) continue;
-        Trace[tmp] = point;
-        if (!DFS (tmp, team)) return false;
+        if (Team[tmp] != 0 && Team[tmp] != team)
+        {
+            AC = true;
+            return;
+        }
+        else if (Team[tmp] != 0) continue;
+        DFS (tmp, team);
+        if (AC) return;
     }
-    return true;
 }
-
+ 
 int main ()
 {
     Init();
-    for (int i = 1; i <= n; ++i) 
+    for (int i = 1; i <= n; ++i)
     {
-        if (Trace[tmp] != 0) continue;
-        if (!DFS (i, 1))
+        if (Team[i] != 0) continue;
+        DFS (i,1);
+        if (AC)
+        {
+            AC = false;
+            DFS (i, 2);
+        }
+        if (AC)
         {
             printf ("IMPOSSIBLE");
             return 0;
         }
     }
-    for (int i = 1; i <= n; ++i) printf("%d ", Team[i]);
+    for (int i = 1; i <= n; ++i) printf ("%d ", Team[i]);
     return 0;
 }
