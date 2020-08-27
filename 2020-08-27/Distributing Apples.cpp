@@ -6,7 +6,7 @@ https://cses.fi/problemset/task/1716
 using namespace std;
 
 typedef long long ll;
-const ll N = 1e6 + 1;
+const ll N = 1e7 + 1;
 const ll oo = 1e9 + 7;
 ll factorial[N];
 
@@ -37,7 +37,8 @@ int main ()
     {
         t --;
         cin >> a >> b;
-        ans = (factorial[a] * Pow ((factorial[a - b]) % oo, oo - 2)) % oo;
+        a = a + b - 1;
+        ans = (factorial[a] * Pow ((factorial[b] * factorial[a - b]) % oo, oo - 2)) % oo;
         cout << ans << '\n';
     }
     return 0;
