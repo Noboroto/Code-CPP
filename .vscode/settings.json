@@ -96,5 +96,30 @@
     "cSpell.words": [
         "maxf",
         "minf"
+    ],
+    "cSpell.ignoreWords": [
+        "bits",
+        "cout",
+        "freopen",
+        "graph",
+        "h",
+        "impossible",
+        "include",
+        "include bits stdc h using namespace std void init freopen graph inp r stdin out w stdout int main cout impossible return",
+        "init",
+        "inp",
+        "int",
+        "main",
+        "namespace",
+        "out",
+        "r",
+        "return",
+        "std",
+        "stdc",
+        "stdin",
+        "stdout",
+        "using",
+        "void",
+        "w"
     ]
 }
