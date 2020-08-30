@@ -28,7 +28,6 @@ int main ()
             if (xy * xy != (x * y)) continue;
             for (long long z = y + 1; z <= n; ++z)
             {
-                
                 xz = sqrt (x * z);
                 yz = sqrt (y * z);
                 ans += (xz * xz == (x * z) && yz * yz == (y * z));
