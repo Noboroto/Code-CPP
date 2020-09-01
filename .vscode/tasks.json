@@ -10,9 +10,8 @@
                 "-std=c++14",
                 "${file}",
                 "-pipe",
-                //"-O2",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
                 "cwd": "C:\\TDM-GCC-64\\bin"
@@ -27,27 +26,22 @@
             "label": "measure",
             "command": "Measure-Command",
             "args": [
-                "{",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "{.\\",
+                "${fileBasenameNoExtension}.exe",
                 "}"
             ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
             "problemMatcher": []
         },
         {
             "type": "shell",
-            "label": "cl.exe build active file",
-            "command": "cl.exe",
-            "args": [
-                "/Zi",
-                "/EHsc",
-                "/Fe:",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "${file}"
-            ],
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": "build"
+            "label": "Run ActiveFile",
+            "command": "${fileBasenameNoExtension}.exe",
+            "options": {
+                "cwd": "${fileDirname}"
+            }
         }
     ]
 }
