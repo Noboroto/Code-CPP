@@ -8,7 +8,7 @@
             "args": [
                 "-g",
                 "-std=c++14",
-                "${file}",
+                "${fileDirname}\\${fileBasenameNoExtension}.cpp",
                 "-pipe",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
