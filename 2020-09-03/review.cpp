@@ -9,7 +9,8 @@ void Init ()
 }
 
 const int N = 1e5 + 1;
-queue <string> AC[26];
+vector < vector <string> > AC (26, vector<string>());
+map <int, int> Counting;
 int n, m;
 string tmp[N], s;
 
@@ -23,14 +24,13 @@ int main ()
     } 
     sort (tmp, tmp + n);;
     string ans = "";
-    for (int i = 0; i < n; ++i) AC[tmp[i][0] - 'a'].push(tmp[i]);
+    for (int i = 0; i < n; ++i) AC[tmp[i][0] - 'a'].push_back(tmp[i]);
     for (int i = 0; i < m; ++i)
     {
         cin >> s;
-        ans = AC[s[0] - 'a'].front();
-        cout << ans << "\n";
-        AC[s[0]-'a'].pop();
-        AC[s[0]-'a'].push(ans);
+        cout << AC[s[0] - 'a'][Counting[s[0] - 'a']] << '\n';
+        Counting[s[0] - 'a']++;
+        Counting[s[0] - 'a'] %= AC[s[0] - 'a'].size();
     }
     return 0;
 }
