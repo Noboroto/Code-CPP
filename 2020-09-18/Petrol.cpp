@@ -8,8 +8,9 @@ void Init ()
     freopen ("Petrol.OUT", "w", stdout);
 }
 
-int n, a, b, c;
-vector <pair <int, int> > ans;
+int n;
+long double a, b, c;
+vector <pair <long double, int> > ans;
 
 int main ()
 {
@@ -18,7 +19,7 @@ int main ()
     for (int i = 0; i < n; ++i)
     {
         cin >> a >> b >> c;
-        ans.push_back(make_pair(max (0, (c - b) / a + ((c - b) % a != 0)), i));
+        ans.push_back(make_pair(max ((long double)0, (c - b) / a), (long double)i));
     }
     sort (ans.begin(), ans.end());
     cout << ans[0].second;
