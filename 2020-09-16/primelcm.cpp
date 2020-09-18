@@ -35,16 +35,47 @@ void Prepare ()
 }
 
 int t;
+ll x;
+vector <pair <ll, int>> Query;
+ll ans[N];
+
+vector<int> Solve (int n)
+{
+    vector <int> ans (n, 1);
+    ll tmp;
+    int k = 0;
+    for (int i = 0; i < PrimeNum.size(); ++i)
+    {
+        tmp = PrimeNum[i]*PrimeNum[i];
+        while (tmp < Query.back().second)
+        {
+            k = lower_bound(Query.begin(), Query.end(), make_pair(k, 0)) - Query.begin();
+            if (k >= Query.size()) break;
+            ans[Query[k].second] = (ans[Query[k].second] * (tmp / PrimeNum[i])) % oo;
+            while (Query[k].first == Query[k].first)
+            {
+                k++;
+                ans[Query[k].second] = (ans[Query[k].second] * (tmp / PrimeNum[i])) % oo;
+            }
+        }
+    }
+    return ans;
+}
 
 int main ()
 {
     //Init();
-    Prepare();\
-    int sum = 0;
-    for (int i = 2; i < N ; ++i)
+    Prepare();
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cin >> t;
+    for (int i = 0; i < t; ++i)
     {
-        if (IsPrime[i]) sum++;
+        cin >> x;
+        Query.push_back(make_pair(x, i));
     }
-    cout << sum;
+    sort(Query.begin(), Query.end());
+    vector <int> ans = Solve(t);
+    for (int i = 0; i < t; ++i) cout << ans[i] << " ";
     return 0;
 }
