@@ -8,6 +8,22 @@ void Init ()
     freopen ("primelcm.OUT", "w", stdout);
 }
 
+struct Num
+{
+    int val, pos;
+    Num (int v = 0, int p = 0)
+    {
+        val = v;
+        pos = p;
+    }
+    bool operator < (const Num &b) const
+    {
+        if (val < b.val) return true;
+        if (val == b.val && pos < b.pos) return true;
+        return false;
+    }
+};
+
 typedef long long ll;
 
 const int N = 1e7 + 1;
@@ -36,27 +52,29 @@ void Prepare ()
 
 int t;
 ll x;
-vector <pair <ll, int>> Query;
+vector <Num> Query;
 ll ans[N];
 
 vector<int> Solve (int n)
 {
-    vector <int> ans (n, 1);
+    vector <int> ans (n, 1), q;
+    for (int i = 0; i < Query.size(); ++i) q.push_back(Query[i].val);
     ll tmp;
     int k = 0;
     for (int i = 0; i < PrimeNum.size(); ++i)
     {
-        tmp = PrimeNum[i]*PrimeNum[i];
-        while (tmp < Query.back().second)
+        tmp = (PrimeNum[i]*PrimeNum[i]) % oo;
+        while (tmp < Query.back().val)
         {
-            k = lower_bound(Query.begin(), Query.end(), make_pair(k, 0)) - Query.begin();
+            k = lower_bound(q.begin(), q.end(), tmp) - q.begin();
             if (k >= Query.size()) break;
-            ans[Query[k].second] = (ans[Query[k].second] * (tmp / PrimeNum[i])) % oo;
-            while (Query[k].first == Query[k].first)
+            ans[Query[k].pos] = (ans[Query[k].pos] * (tmp / PrimeNum[i])) % oo;
+            while (Query[k].val == Query[k + 1].val && k < Query.size())
             {
                 k++;
-                ans[Query[k].second] = (ans[Query[k].second] * (tmp / PrimeNum[i])) % oo;
+                ans[Query[k].pos] = (ans[Query[k].pos] * (tmp / PrimeNum[i])) % oo;
             }
+            tmp = (PrimeNum[i] * tmp) % oo;
         }
     }
     return ans;
@@ -72,7 +90,7 @@ int main ()
     for (int i = 0; i < t; ++i)
     {
         cin >> x;
-        Query.push_back(make_pair(x, i));
+        Query.push_back(Num(x, i));
     }
     sort(Query.begin(), Query.end());
     vector <int> ans = Solve(t);
