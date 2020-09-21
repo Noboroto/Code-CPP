@@ -1,6 +1,11 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <map>
 
 using namespace std;
+typedef long long ll;
 
 void Init ()
 {
@@ -10,8 +15,8 @@ void Init ()
 
 struct Num
 {
-    int val, pos;
-    Num (int v = 0, int p = 0)
+    ll val, pos;
+    Num (ll v = 0, ll p = 0)
     {
         val = v;
         pos = p;
@@ -24,60 +29,62 @@ struct Num
     }
 };
 
-typedef long long ll;
-
-const int N = 1e7 + 1;
+const ll N = 1e7 + 1;
 const ll oo = 998244353;
+const ll T = 1e5 + 1;
 
-bool IsPrime[N];
-vector <ll> PrimeNum;
+bool IsNotPrime[N];
+vector<ll> MulNum[7*T];
+ll PrimeNum[7*T];
+ll t = 0;
 
-void Prepare ()
+void Prepare (ll limit)
 {
-    for (ll i = 0; i < N; ++i)
-    {
-        IsPrime[i] = true;
-    }
     ll tmp = 1;
+    limit++;
     for (ll i = 2; i < N; ++i)
     {
-        if (!IsPrime[i]) continue;
-        PrimeNum.push_back(i);
-        for (ll j = 2; j*i < N; ++j)
+        if (IsNotPrime[i]) continue;
+        tmp = i * i;
+        for (ll j = i; j*i < N; ++j)
         {
-            IsPrime[i*j] = false;
+            IsNotPrime[i*j] = true;
         }
+        while (tmp <= limit)
+        {
+            MulNum[t].push_back(tmp);
+            tmp *= i;
+        }
+        PrimeNum[t] = i;
+        t++;
     }
 }
 
-const int T = 1e5 + 1;
-int n, i;
+ll n, i;
 Num Query[T];
 ll ans[T], q[T];
 
-void Solve (int n)
+void Solve (ll n)
 {
-    ll tmp;
-    int k = 0;
-    for (i = 0; i < PrimeNum.size(); ++i)
+    ll k = 0, j;
+    for (i = 0; i <= t; ++i)
     {
-        tmp = (PrimeNum[i]*PrimeNum[i]) % oo;
-        if (tmp > Query[n - 1].val) break;
-        while (tmp <= Query[n - 1].val)
+        if (MulNum[i].size() < 1 || MulNum[i][0] > Query[n - 1].val) break;
+        for (j = 0; j < MulNum[i].size(); ++j)
         {
-            k = lower_bound(Query, Query + n, Num(tmp, 0)) - Query;
-            q[k] = (q[k] * PrimeNum[i]) % oo;
-            tmp = (PrimeNum[i] * tmp) % oo;
+            if (MulNum[i][j] > Query[n - 1].val) break;
+            k = lower_bound(Query, Query + n, Num(MulNum[i][j], 0)) - Query;
+            q[k] = ((q[k] % oo) * (PrimeNum[i] % oo)) % oo;
         }
     }
     for (i = 0; i < n; ++i)
     {
-        if (i > 0) q[i] = (q[i-1] * q[i]) % oo;
+        if (i > 0) q[i] = ((q[i-1] % oo) * (q[i] % oo)) % oo;
         ans[Query[i].pos] = q[i];
     }
 }
 
-void Get(int &a)
+void Get(ll &a)
 {
     a = 0;
     char c = 'a';
@@ -98,9 +105,8 @@ void Put (ll a)
 int main ()
 {
     Init();
-    Prepare();
     Get(n);
-    for (int i = 0; i < n; ++i)
+    for (ll i = 0; i < n; ++i)
     {
         Get(Query[i].val);
         Query[i].pos = i;
@@ -108,8 +114,9 @@ int main ()
         q[i] = 1;
     }
     sort(Query, Query + n);
+    Prepare(Query[n-1].val);
     Solve(n);
-    for (int i = 0; i < n; ++i) 
+    for (ll i = 0; i < n; ++i) 
     {
         Put (ans[i]);
         putchar(' ');

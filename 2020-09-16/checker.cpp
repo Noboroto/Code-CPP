@@ -3,7 +3,7 @@
 using namespace std;
 
 const string NAME = "primelcm";
-int n = 100;
+int n = 1;
 fstream a, o, i;
 
 int Check ()
@@ -27,12 +27,12 @@ int main ()
 {
     int tmp;
     clock_t b;
-    freopen ("logs.txt", "w", stdout);
+    //freopen ("logs.txt", "w", stdout);
     for (int j = 1; j <= n; ++j)
     {
         b = clock();
-        system((NAME + "_sinh.exe").c_str());
-        system((NAME + "_trau.exe").c_str());
+        /*system((NAME + "_sinh.exe").c_str());
+        system((NAME + "_trau.exe").c_str());*/
         system((NAME + ".exe").c_str());
         b = clock() - b;
         if ((double)b / CLOCKS_PER_SEC > 1) 
