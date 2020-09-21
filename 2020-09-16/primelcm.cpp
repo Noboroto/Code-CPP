@@ -57,32 +57,28 @@ ll ans[N];
 
 vector<int> Solve (int n)
 {
-    vector <int> ans (n, 1), q;
-    for (int i = 0; i < Query.size(); ++i) q.push_back(Query[i].val);
+    vector <int> ans (n, 1);
     ll tmp;
     int k = 0;
     for (int i = 0; i < PrimeNum.size(); ++i)
     {
         tmp = (PrimeNum[i]*PrimeNum[i]) % oo;
+        if (tmp > Query.back().val) break;
         while (tmp < Query.back().val)
         {
-            k = lower_bound(q.begin(), q.end(), tmp) - q.begin();
+            k = lower_bound(Query.begin(), Query.end(), Num(tmp, 0)) - Query.begin();
             if (k >= Query.size()) break;
-            ans[Query[k].pos] = (ans[Query[k].pos] * (tmp / PrimeNum[i])) % oo;
-            while (Query[k].val == Query[k + 1].val && k < Query.size())
-            {
-                k++;
-                ans[Query[k].pos] = (ans[Query[k].pos] * (tmp / PrimeNum[i])) % oo;
-            }
+            ans[Query[k].pos] = (ans[Query[k].pos] * PrimeNum[i]) % oo;
             tmp = (PrimeNum[i] * tmp) % oo;
         }
     }
+    for (int i = 1; i < n; ++i) ans[i] = (ans[i-1] * ans[i]) % oo;
     return ans;
 }
 
 int main ()
 {
-    //Init();
+    Init();
     Prepare();
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
