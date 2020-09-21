@@ -30,7 +30,7 @@ const int N = 1e7 + 1;
 const ll oo = 998244353;
 
 bool IsPrime[N];
-vector <int> PrimeNum;
+vector <ll> PrimeNum;
 
 void Prepare ()
 {
@@ -50,46 +50,69 @@ void Prepare ()
     }
 }
 
-int t;
-ll x;
-vector <Num> Query;
-ll ans[N];
+const int T = 1e5 + 1;
+int n, i;
+Num Query[T];
+ll ans[T], q[T];
 
-vector<int> Solve (int n)
+void Solve (int n)
 {
-    vector <int> ans (n, 1);
     ll tmp;
     int k = 0;
-    for (int i = 0; i < PrimeNum.size(); ++i)
+    for (i = 0; i < PrimeNum.size(); ++i)
     {
         tmp = (PrimeNum[i]*PrimeNum[i]) % oo;
-        if (tmp > Query.back().val) break;
-        while (tmp < Query.back().val)
+        if (tmp > Query[n - 1].val) break;
+        while (tmp <= Query[n - 1].val)
         {
-            k = lower_bound(Query.begin(), Query.end(), Num(tmp, 0)) - Query.begin();
-            if (k >= Query.size()) break;
-            ans[Query[k].pos] = (ans[Query[k].pos] * PrimeNum[i]) % oo;
+            k = lower_bound(Query, Query + n, Num(tmp, 0)) - Query;
+            q[k] = (q[k] * PrimeNum[i]) % oo;
             tmp = (PrimeNum[i] * tmp) % oo;
         }
     }
-    for (int i = 1; i < n; ++i) ans[i] = (ans[i-1] * ans[i]) % oo;
-    return ans;
+    for (i = 0; i < n; ++i)
+    {
+        if (i > 0) q[i] = (q[i-1] * q[i]) % oo;
+        ans[Query[i].pos] = q[i];
+    }
+}
+
+void Get(int &a)
+{
+    a = 0;
+    char c = 'a';
+    while (true)
+    {
+        c = getchar();
+        if (c < '0' || c > '9') break;
+        a = a*10 + (c - '0');
+    }
+}
+
+void Put (ll a)
+{
+    if (a >= 10) Put(a / 10);
+    putchar(a % 10 + '0');
 }
 
 int main ()
 {
     Init();
     Prepare();
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cin >> t;
-    for (int i = 0; i < t; ++i)
+    Get(n);
+    for (int i = 0; i < n; ++i)
     {
-        cin >> x;
-        Query.push_back(Num(x, i));
+        Get(Query[i].val);
+        Query[i].pos = i;
+        ans[i] = 0;
+        q[i] = 1;
     }
-    sort(Query.begin(), Query.end());
-    vector <int> ans = Solve(t);
-    for (int i = 0; i < t; ++i) cout << ans[i] << " ";
+    sort(Query, Query + n);
+    Solve(n);
+    for (int i = 0; i < n; ++i) 
+    {
+        Put (ans[i]);
+        putchar(' ');
+    }
     return 0;
 }
