@@ -1,7 +1,14 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
+void abc(int u)
+{
+    cout<<u;
+}
+void abc(int u, int v)
+{
+    
+}
 struct Point 
 {
     int x, y;
@@ -13,6 +20,7 @@ struct Point
     bool operator < (const Point &b) const
     {
         if (x < b.x) return true;
+        
         if (x == b.y && y < b.y) return true;
         return false;
     }

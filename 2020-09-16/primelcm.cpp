@@ -53,7 +53,8 @@ void Prepare (ll limit)
         while (tmp <= limit)
         {
             MulNum[t].push_back(tmp);
-            tmp *= i;
+            if (limit/i < tmp) break;
+            else tmp *= i;
         }
         PrimeNum[t] = i;
         t++;
@@ -74,7 +75,7 @@ void Solve (ll n)
         {
             if (MulNum[i][j] > Query[n - 1].val) break;
             k = lower_bound(Query, Query + n, Num(MulNum[i][j], 0)) - Query;
-            q[k] = ((q[k] % oo) * (PrimeNum[i] % oo)) % oo;
+            q[k] = (q[k] * PrimeNum[i] ) % oo;
         }
     }
     for (i = 0; i < n; ++i)
