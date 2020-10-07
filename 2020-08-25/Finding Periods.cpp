@@ -1,11 +1,7 @@
-/*
-https://cses.fi/problemset/task/1733
-*/
-
 #include <bits/stdc++.h>
-
+ 
 using namespace std;
-
+ 
 vector <int> Get_Z (string s)
 {
     int n = s.length();
@@ -18,23 +14,23 @@ vector <int> Get_Z (string s)
         {
             ans[i] = min (r - i + 1, ans[i - l]);
         }
-        while (i + ans[i] < n && s[ans[i]] == s[i + ans[i]])
-            ++ans[i];
+        while (i + ans[i] < n && s[ans[i]] == s[i + ans[i]]) ++ans[i];
         if (i + ans[i] - 1 > r)
-            l = i, r = i + ans[i] - 1;
+            l = i;
+            r = i + ans[i] - 1;
     }
     return ans;
 }
-
+ 
 vector <int> Prefix;
 string s;
-
+ 
 void Init ()
 {
     cin >> s;
     Prefix = Get_Z(s);
 }
-
+ 
 int main ()
 {
     Init();
