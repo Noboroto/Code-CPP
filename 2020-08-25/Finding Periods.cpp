@@ -14,10 +14,9 @@ vector <int> Get_Z (string s)
         {
             ans[i] = min (r - i + 1, ans[i - l]);
         }
-        while (i + ans[i] < n && s[ans[i]] == s[i + ans[i]]) ++ans[i];
+        while (i + ans[i] < n && s[ans[i]] == s[i + ans[i]])++ans[i];
         if (i + ans[i] - 1 > r)
-            l = i;
-            r = i + ans[i] - 1;
+            l = i, r = i + ans[i] - 1;
     }
     return ans;
 }
@@ -41,5 +40,4 @@ int main ()
         cout << i << ' ';
     }
     cout << s.length();
-    return 0;
 }
